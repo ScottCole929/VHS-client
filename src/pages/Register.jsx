@@ -1,15 +1,32 @@
+import React from "react";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+
+const unitedStates = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
+    "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", 
+    "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", 
+    "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", 
+    "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", 
+    "New Hampshire", "New Jersey", "New Mexico", "New York",
+    "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", 
+    "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+    "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", 
+    "West Virginia", "Wisconsin", "Wyoming"
+]
 
 export const Register = () => {
   const [email, setEmail] = useState("admina@straytor.com");
   const [password, setPassword] = useState("straytor");
   const [firstName, setFirstName] = useState("Admina");
   const [lastName, setLastName] = useState("Straytor");
+  const [street_address, setStreetAddress] = useState("123 Fake Street");
+  const [city, setCity] = useState("Nashville");
+  const [state, setState] = useState("Tennessee");
+  const [zip_code, setZipCode] = useState("12345")
   const [bio, setBio] = useState("Bio");
-  const [profile_image_url, setProfileImg] = useState("Image URL");
-  const [rare_username, setRareUsername] = useState("");
+  const [profile_img_url, setProfileImgUrl] = useState("Image URL");
   const existDialog = useRef();
   const navigate = useNavigate();
 
@@ -22,9 +39,12 @@ export const Register = () => {
         password,
         first_name: firstName,
         last_name: lastName,
+        street_address,
+        city,
+        state,
+        zip_code,
         bio,
-        profile_image_url,
-        rare_username,
+        profile_img_url
       }),
       headers: {
         "Content-Type": "application/json",
@@ -55,10 +75,10 @@ export const Register = () => {
 
       <section>
         <form className="form--login" onSubmit={handleRegister}>
-          <h1 className="text-4xl mt-7 mb-3">rare</h1>
+          <h1 className="text-4xl mt-7 mb-3">V-H-YES!</h1>
           <h2 className="text-xl mb-10">Register new account</h2>
           <fieldset className="mb-4">
-            <label htmlFor="firstName"> First name </label>
+            <label htmlFor="firstName"> First Name </label>
             <input
               type="text"
               id="firstName"
@@ -71,7 +91,7 @@ export const Register = () => {
             />
           </fieldset>
           <fieldset className="mb-4">
-            <label htmlFor="lastName"> Last name </label>
+            <label htmlFor="lastName"> Last Name </label>
             <input
               type="text"
               id="lastName"
@@ -84,7 +104,7 @@ export const Register = () => {
             />
           </fieldset>
           <fieldset className="mb-4">
-            <label htmlFor="inputEmail"> Email </label>
+            <label htmlFor="inputEmail"> Email Address </label>
             <input
               type="text"
               id="inputEmail"
@@ -108,6 +128,74 @@ export const Register = () => {
             />
           </fieldset>
           <fieldset className="mb-4">
+            <label htmlFor="inputStreetAddress"> Street Address </label>
+            <input
+              type="text"
+              id="inputStreetAddress"
+              value={street_address}
+              onChange={(evt) => setStreetAddress(evt.target.value)}
+              className="form-control"
+              placeholder="Street Address"
+              required
+              autoFocus
+            />
+          </fieldset>
+          <fieldset className="mb-4">
+            <label htmlFor="inputCity"> City </label>
+            <input
+              type="text"
+              id="inputCity"
+              value={city}
+              onChange={(evt) => setCity(evt.target.value)}
+              className="form-control"
+              placeholder="City"
+              required
+              autoFocus
+            />
+          </fieldset>
+          <fieldset className="mb-4">
+            <label htmlFor="inputState"> State </label>
+            <select
+              id="inputState"
+              value={state}
+              onChange={(evt) => setState(evt.target.value)}
+              className="form-control"
+              required
+            >
+                {unitedStates.map((unitedState) => (
+                    <option key={unitedState} value={unitedState}>
+                        {unitedState}
+                    </option>
+                ))}
+              </select>
+          </fieldset>
+          {/* <fieldset className="mb-4">
+            <label htmlFor="inputState"> State </label>
+            <input
+              type="text"
+              id="inputState"
+              value={state}
+              onChange={(evt) => setState(evt.target.value)}
+              className="form-control"
+              placeholder="State"
+              required
+              autoFocus
+            />
+          </fieldset> */}
+          <fieldset className="mb-4">
+            <label htmlFor="inputZipCode"> Zip Code </label>
+            <input
+              type="text"
+              id="inputZipCode"
+              value={zip_code}
+              onChange={(evt) => setZipCode(evt.target.value)}
+              className="form-control"
+              placeholder="Zip Code"
+              required
+              autoFocus
+            />
+          </fieldset>
+          <fieldset className="mb-4">
             <label htmlFor="inputBio"> Bio </label>
             <input
               type="text"
@@ -119,25 +207,14 @@ export const Register = () => {
             />
           </fieldset>
           <fieldset className="mb-4">
-            <label htmlFor="inputProfileImg"> ImageUrl </label>
+            <label htmlFor="inputProfileImgUrl"> Profile Image URL </label>
             <input
               type="text"
-              id="inputProfileImg"
-              value={profile_image_url}
-              onChange={(evt) => setProfileImg(evt.target.value)}
+              id="inputProfileImgUrl"
+              value={profile_img_url}
+              onChange={(evt) => setProfileImgUrl(evt.target.value)}
               className="form-control"
-              placeholder="ImageUrl"
-            />
-          </fieldset>
-          <fieldset className="mb-4">
-            <label htmlFor="rare_username"> Username </label>
-            <input
-              type="text"
-              id="inputUsername"
-              value={rare_username}
-              onChange={(evt) => setRareUsername(evt.target.value)}
-              className="form-control"
-              placeholder="username"
+              placeholder="ProfileImgUrl"
             />
           </fieldset>
           <fieldset>

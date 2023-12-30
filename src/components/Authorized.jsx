@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { NavBar } from "./Navbar.jsx";
+import React from "react";
 
 export const Authorized = () => {
   if (localStorage.getItem("rare_token")) {

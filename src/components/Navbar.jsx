@@ -1,4 +1,4 @@
-
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
@@ -7,7 +7,7 @@ export const NavBar = () => {
   return (
     <ul className="navbar pt-2 pb-6">
       <li className="navbar__item pl-10">
-        <NavLink className="btn-navbar" to={"/alltapes"}>
+        <NavLink className="btn-navbar" to={"/"}>
           All Tapes
         </NavLink>
       </li>
