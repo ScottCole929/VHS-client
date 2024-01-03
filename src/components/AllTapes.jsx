@@ -1,7 +1,9 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { getMovies } from "../services/tapeService"
+import { selectTape } from "../services/rentalService"
 import { useNavigate } from "react-router-dom"
+import { getUserId } from "../services/userService"
 // import "./Movies.css"
 
 export const AllTapes = () => {
@@ -14,9 +16,16 @@ export const AllTapes = () => {
         })
     }, [])
 
-    const selectTape = (tapeId) => {
-        navigate
+    const handleTapeSelection = (tapeId) => {
+        const getCurrentUserId = getUserId()
+
+        selectTape(getCurrentUserId, tapeId).then(() => {
+            navigate(`/myrentals`)
+        }).catch(error => {
+            console.error("Error selecting tape:", error)
+        })
     }
+
 
     const seeAllReviews = (tapeId) => {
         navigate(`/review/${tapeId}`)
@@ -25,9 +34,6 @@ export const AllTapes = () => {
     return (
         <div>
             <div className="list-header">
-        <img className="logo" 
-        // src={DinnerMovie1}
-         alt="Reel Meal Logo"/>
         <h1 className="font-vhs">V-H-YES!</h1>
         <h4>Select your physical media artifact below!</h4>
         </div>
@@ -50,7 +56,7 @@ export const AllTapes = () => {
             <div className="tape-name">Genre: {tape.genre_data.map(genre => genre.label).join(', ')}</div>
             <div className="tape-name">A {tape.production_studio} Film</div>
                 <div>
-                    <button onClick={() => selectTape(tape.id)} className="select-btn">
+                    <button onClick={() => handleTapeSelection(tape.id)} className="select-btn">
                         Select This Tape
                     </button>
                     <button onClick={() => seeAllReviews(tape.id)} className="all-reviews-btn">
