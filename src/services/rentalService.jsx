@@ -9,7 +9,7 @@ export const selectTape = (tapeId) => {
             'Authorization': `Token ${token}`,
           },
         body: JSON.stringify({
-            movie_id: tapeId,
+            movie: tapeId,
             is_selected: true,
             is_active: false
         })
@@ -53,6 +53,27 @@ export const deleteSelectedTape = (rentalId) => {
     }).then((res) => {
         return res.json()
     })
-    
-
 }
+
+// export const rentTape = (rentalId) => {
+//     const variable = JSON.parse(localStorage.getItem("rare_token"))
+//     const token = variable.token
+//     return fetch(`http://localhost:8000/rent-tape/${rentalId}`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Token ${token}`,
+//         }
+//     }).then((res) => {
+//         return res.json()
+//     }).then((rental) => {
+//         let pastTapeRentals = JSON.parse(localStorage.getItem('pastTapeRentals'))
+//         if (!pastTapeRentals) {
+//             pastTapeRentals = [];
+//         }
+//         pastTapeRentals.push(rental)
+//         localStorage.setItem('pastTapeRentals', JSON.stringify(pastTapeRentals))
+
+//         setPastTapeRentals(pastTapeRentals)
+//     })
+// }
