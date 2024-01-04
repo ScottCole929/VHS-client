@@ -17,9 +17,9 @@ export const AllTapes = () => {
     }, [])
 
     const handleTapeSelection = (tapeId) => {
-        const getCurrentUserId = getUserId()
+        // const getCurrentUserId = getUserId()
 
-        selectTape(getCurrentUserId, tapeId).then(() => {
+        selectTape(tapeId).then(() => {
             navigate(`/myrentals`)
         }).catch(error => {
             console.error("Error selecting tape:", error)

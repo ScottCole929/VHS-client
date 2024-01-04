@@ -25,6 +25,34 @@ export const MyRentals = () => {
         })
     }
 
+    const writeReview = (tapeId) => {
+        navigate(`/reviewform/${tapeId}`)
+    }
+
+
+    const rentTape = (rentalId) => {
+        const variable = JSON.parse(localStorage.getItem("rare_token"))
+        const token = variable.token
+        return fetch(`http://localhost:8000/rent-tape/${rentalId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`,
+            }
+        }).then((res) => {
+            return res.json()
+        }).then((rental) => {
+            let pastTapeRentals = JSON.parse(localStorage.getItem('pastTapeRentals'))
+            if (!pastTapeRentals) {
+                pastTapeRentals = [];
+            }
+            pastTapeRentals.push(rental)
+            localStorage.setItem('pastTapeRentals', JSON.stringify(pastTapeRentals))
+    
+            setPastTapeRentals(pastTapeRentals)
+        })
+    }
+
 return (
     <div>
         <div>VHS Currently Selected</div>
@@ -35,12 +63,21 @@ return (
                 src={tapeSelection.movie?.cover_img_url}
                 className="movie-img w-10 h-10 object-cover"
                 ></img>
-                <button>
+                {tapeSelection.is_active ? (
+                    <div>You currently have a VHS rented</div>
+                ) : (
+                <>
+                <button onClick={() => {rentTape(tapeSelection.id).then(() => {
+                    navigate('/confirmation')
+                })
+                }}>
                     Rent This Movie
                 </button>
                 <button onClick={handleSelectionDelete}>
                     Remove Tape from Selection
                 </button>
+                </>
+                )}
             </div>
         ) : (
             <div>No VHS selected yet</div>
@@ -49,13 +86,21 @@ return (
         {pastTapeRentals.length > 0 ? (
             pastTapeRentals.map(rental => (
                 <div key={rental.id}>
-                    <h2>{rental.movie?.title}</h2>
-                    <p>Date Rented: {rental.date_rented}</p>
-                    <p>Date Returned: {rental.date_returned}</p>
+                    <img 
+                        src={rental.movie?.cover_img_url}
+                        className="movie-img h-15 w-15 object-cover"
+                    />
+                    <div>
+                        <h2>{rental.movie?.title}</h2>
+                        <p>Date Rented: {rental.date_rented}</p>
+                        <button onClick={() => writeReview(rental.id)}>
+                            Write a Review!
+                        </button>
+                        </div>
                 </div>
             ))
         ) : (
-            <p>You have no previous rented tapes</p>
+            <p>You have no previously rented tapes</p>
         )}
     </div>
     )
