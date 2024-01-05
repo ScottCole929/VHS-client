@@ -169,19 +169,6 @@ export const Register = () => {
                 ))}
               </select>
           </fieldset>
-          {/* <fieldset className="mb-4">
-            <label htmlFor="inputState"> State </label>
-            <input
-              type="text"
-              id="inputState"
-              value={state}
-              onChange={(evt) => setState(evt.target.value)}
-              className="form-control"
-              placeholder="State"
-              required
-              autoFocus
-            />
-          </fieldset> */}
           <fieldset className="mb-4">
             <label htmlFor="inputZipCode"> Zip Code </label>
             <input
@@ -204,17 +191,6 @@ export const Register = () => {
               onChange={(evt) => setBio(evt.target.value)}
               className="form-control"
               placeholder="Bio"
-            />
-          </fieldset>
-          <fieldset className="mb-4">
-            <label htmlFor="inputProfileImgUrl"> Profile Image URL </label>
-            <input
-              type="text"
-              id="inputProfileImgUrl"
-              value={profile_img_url}
-              onChange={(evt) => setProfileImgUrl(evt.target.value)}
-              className="form-control"
-              placeholder="ProfileImgUrl"
             />
           </fieldset>
           <fieldset>

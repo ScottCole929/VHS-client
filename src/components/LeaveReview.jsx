@@ -4,27 +4,36 @@ import { createReview } from "../services/reviewService"
 import { useNavigate, useParams } from "react-router-dom"
 
 export const LeaveReview = () => {
-    const [reviewTitle, setReviewTitle] = useState('')
-    const [reviewComment, setReviewComment] = useState('')
+    const [reviewName, setReviewName] = useState('')
+    const [reviewBody, setReviewBody] = useState('')
     const { tapeId } = useParams()
 
     const navigate = useNavigate()
 
     const submitNewReview = async (event) => {
         event.preventDefault()
+
+        console.log("Submitting review for movie Id:", tapeId)
+
         const reviewContent = {
-                title: reviewTitle,
-                comment: reviewComment,
+                title: reviewName,
+                comment: reviewBody,
                 movie: tapeId
         }
 
-        const response = await createReview(reviewContent)
+        try {
+            const response = await createReview(reviewContent)
+            console.log("Response from createReview:", response)
+            console.log("Response status:", response.status)
 
-        if (response.ok) {
-            navigate('/myreviews')
-        } else {
-            console.error('Review was not submitted')
-        }
+                if (response.ok) {
+                navigate('/myreviews')
+            } else {
+                console.error('Review has not been submitted')
+            }
+        } catch (error) {
+            console.error('Error submitting this review:', error)
+        } 
     }
 
     return (
@@ -34,19 +43,19 @@ export const LeaveReview = () => {
                     Review Name:
                     <input
                         type="text"
-                        value={reviewTitle}
-                        onChange={(event) => setReviewTitle(event.target.value)}
+                        value={reviewName}
+                        onChange={(event) => setReviewName(event.target.value)}
                     />
                 </label>
                 <label>
                     Your Review:
                     <textarea
-                        value={reviewComment}
-                        onChange={(event) => setReviewComment(event.target.value)}
+                        value={reviewBody}
+                        onChange={(event) => setReviewBody(event.target.value)}
                     />
                 </label>
                 <button>
-                    Save Review
+                    Save This Review
                 </button>
             </form>
         </div>

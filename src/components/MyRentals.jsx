@@ -4,29 +4,29 @@ import { useNavigate } from "react-router-dom"
 import { getSelectedTape, getPastRentedTapes, deleteSelectedTape } from "../services/rentalService"
 
 export const MyRentals = () => {
-    const [tapeSelection, setTapeSelection] = useState(null)
-    const [pastTapeRentals, setPastTapeRentals] = useState([])
+    const [tapeChoice, setTapeChoice] = useState(null)
+    const [pastRentalTapes, setPastRentalTapes] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
         getSelectedTape().then(selected => {
-            setTapeSelection(selected)
+            setTapeChoice(selected)
         })
 
         getPastRentedTapes().then(rented => {
-            setPastTapeRentals(rented)
+            setPastRentalTapes(rented)
         })
     }, [])
 
     const handleSelectionDelete = () => {
-        deleteSelectedTape(tapeSelection.id).then(() => {
-            setTapeSelection(null)
+        deleteSelectedTape(tapeChoice.id).then(() => {
+            setTapeChoice(null)
             alert("Tape has been removed from your selection.")
         })
     }
 
-    const writeReview = (tapeId) => {
-        navigate(`/reviewform/${tapeId}`)
+    const writeReview = (movieId) => {
+        navigate(`/reviewform/${movieId}`)
     }
 
 
@@ -49,25 +49,25 @@ export const MyRentals = () => {
             pastTapeRentals.push(rental)
             localStorage.setItem('pastTapeRentals', JSON.stringify(pastTapeRentals))
     
-            setPastTapeRentals(pastTapeRentals)
+            setPastRentalTapes(pastTapeRentals)
         })
     }
 
 return (
     <div>
         <div>VHS Currently Selected</div>
-        {tapeSelection ? (
+        {tapeChoice ? (
             <div>
-                <h2>{tapeSelection.movie?.title}</h2>
+                <h2>{tapeChoice.movie?.title}</h2>
                 <img
-                src={tapeSelection.movie?.cover_img_url}
+                src={tapeChoice.movie?.cover_img_url}
                 className="movie-img w-10 h-10 object-cover"
                 ></img>
-                {tapeSelection.is_active ? (
+                {tapeChoice.is_active ? (
                     <div>You currently have a VHS rented</div>
                 ) : (
                 <>
-                <button onClick={() => {rentTape(tapeSelection.id).then(() => {
+                <button onClick={() => {rentTape(tapeChoice.id).then(() => {
                     navigate('/confirmation')
                 })
                 }}>
@@ -83,8 +83,8 @@ return (
             <div>No VHS selected yet</div>
         )}
         <div>Your Past VHS Rentals</div>
-        {pastTapeRentals.length > 0 ? (
-            pastTapeRentals.map(rental => (
+        {pastRentalTapes.length > 0 ? (
+            pastRentalTapes.map(rental => (
                 <div key={rental.id}>
                     <img 
                         src={rental.movie?.cover_img_url}
@@ -93,7 +93,7 @@ return (
                     <div>
                         <h2>{rental.movie?.title}</h2>
                         <p>Date Rented: {rental.date_rented}</p>
-                        <button onClick={() => writeReview(rental.id)}>
+                        <button onClick={() => writeReview(rental.movie?.id)}>
                             Write a Review!
                         </button>
                         </div>

@@ -47,7 +47,7 @@ export const Login = () => {
           <div>
             As streaming media continues to grow, physical media is becoming more and more difficult to find. V-H-YES takes you back to the good old days of the original physical movie media: VHS cassette tapes!
             For $49/year through Venmo, sign up and you can join our rental service where you can rent one tape at a time. The tape will ship to your mailbox in a resealable, returnable mailer. You just send it back whenever you're ready to get another tape.
-            Come take a walk down memory lane and check out all your favorite classics!
+            Come take a walk down memory lane, fire up your VCR, and check out all your favorite classics!
           </div>
           <h2 className="text-xl mb-10">Please sign in</h2>
           <fieldset className="mb-4">

@@ -1,21 +1,21 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getMovieReviewsById } from "../services/reviewService";
+import { useParams } from "react-router-dom";
 import { getMovieById } from "../services/tapeService";
 
 export const TapeReviews = () => {
-    const [tape, setTape] = useState(null)
-    const [movieReviews, setMovieReviews] = useState([])
+    const [currentTape, setCurrentTape] = useState(null)
+    const [writtenReviews, setWrittenReviews] = useState([])
     const { tapeId } = useParams()
 
     useEffect(() => {
         getMovieReviewsById(tapeId)
-            .then(reviewInfo => {setMovieReviews([reviewInfo])
+            .then(reviewInfo => {setWrittenReviews([reviewInfo])
             })
             
         getMovieById(tapeId)
-            .then(movieInfo => setTape(movieInfo))
+            .then(movieInfo => setCurrentTape(movieInfo))
             
         }, [tapeId])
 
@@ -23,13 +23,13 @@ export const TapeReviews = () => {
 
     return (
         <div>
-            {tape && <div>Reviews for {tape.title}</div>}
-            {movieReviews.map(movieReview => (
-                <div key={movieReview.id} className="individual-review">
-                    <div>{movieReview.title}</div>
-                    <div>By: {movieReview.user_info?.user_full_name || 'Unknown User'}</div>
-                    <div>{movieReview.comment}</div>
-                    <div>Review Date: {movieReview.date_reviewed || 'Unknown Date'}</div>
+            {currentTape && <div>Reviews for {currentTape.title}</div>}
+            {writtenReviews.map(content => (
+                <div key={content.id} className="individual-review">
+                    <div>{content.title}</div>
+                    <div>By: {content.user_info?.user_full_name || 'Unknown User'}</div>
+                    <div>{content.comment}</div>
+                    <div>Review Date: {content.date_reviewed || 'Unknown Date'}</div>
                 </div>
             ))}
         </div>

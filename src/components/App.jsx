@@ -8,6 +8,9 @@ import { TapeReviews } from "./TapeReviews";
 import { MyRentals } from "./MyRentals";
 import { Confirmation } from "./Confirmation"
 import { LeaveReview } from "./LeaveReview";
+import { MyReviews } from "./MyReviews";
+import { EditUserReview } from "./EditReview";
+import { MyProfile } from "./MyProfile";
 
 
 export const App = () => {
@@ -22,7 +25,9 @@ export const App = () => {
           <Route path="/myrentals" element={<MyRentals />} />
           <Route path="/reviewform/:tapeId" element={<LeaveReview />} />
           <Route path="/confirmation" element={<Confirmation />} />
-          {/* <Route path="/myreviews" element={<MyReviews />} /> */}
+          <Route path="/myreviews" element={<MyReviews />} />
+          <Route path="/edit-review/:reviewId" element={<EditUserReview />} />
+          <Route path="/myprofile" element={<MyProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>
