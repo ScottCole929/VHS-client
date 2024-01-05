@@ -21,6 +21,11 @@ export const NavBar = () => {
           My Reviews
         </NavLink>
       </li>
+      <li className="navbar__item">
+        <NavLink className="btn-navbar" to={"/myprofile"}>
+          My Profile
+        </NavLink>
+      </li>
       {localStorage.getItem("rare_token") !== null ? (
         <li className="navbar__item -translate-y-2">
           <button

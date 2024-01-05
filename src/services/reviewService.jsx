@@ -4,12 +4,12 @@ export const getMovieReviewsById = async (id) => {
     return fetch(`http://localhost:8000/review/${id}`, {
           headers: {
             Authorization: `Token ${token}`,
-            // Add other headers if needed
           },
         }).then((res) => res.json());
       };
 
-  export const createReview = async (reviewContent) => {
+
+  export const createReview = async (reviewBody) => {
     const variable = JSON.parse(localStorage.getItem("rare_token"))
     const token = variable.token;
     return fetch(`http://localhost:8000/review`, {
@@ -18,6 +18,40 @@ export const getMovieReviewsById = async (id) => {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-      body: JSON.stringify(reviewContent),
-    }).then((res) => res.json())
+      body: JSON.stringify(reviewBody),
+    })
+  }
+
+  export const getUserReviews = async () => {
+    const variable = JSON.parse(localStorage.getItem("rare_token"))
+    const token = variable.token;
+    return fetch(`http://localhost:8000/review/my-reviews`, {
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    }).then(res => res.json())
+  }
+
+  export const editUserReview = async (reviewId, reviewBody) => {
+    const variable = JSON.parse(localStorage.getItem("rare_token"))
+    const token = variable.token;
+    return fetch(`http://localhost:8000/review/${reviewId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(reviewBody)
+    })
+  }
+
+  export const deleteUserReview = async (reviewId) => {
+    const variable = JSON.parse(localStorage.getItem("rare_token"))
+    const token = variable.token;
+    return fetch(`http://localhost:8000/review/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+      }
+    })
   }
